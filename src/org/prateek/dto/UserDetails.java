@@ -5,6 +5,10 @@ package org.prateek.dto;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,8 +30,17 @@ public class UserDetails
     private String userName;
     @Temporal(TemporalType.DATE)
     private Date joinedDate;
-    private String Address;
     private String description;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "home_street")),
+            @AttributeOverride(name = "city", column = @Column(name = "home_city")),
+            @AttributeOverride(name = "pincode", column = @Column(name = "home_pincode")),
+            @AttributeOverride(name = "state", column = @Column(name = "home_state"))
+    })
+    private Address home_address;
+    @Embedded
+    private Address office_address;
 
     /**
      * @return the joinedDate
@@ -46,19 +59,35 @@ public class UserDetails
     }
 
     /**
-     * @return the address
+     * @return the home_address
      */
-    public String getAddress()
+    public Address getHome_address()
     {
-        return Address;
+        return home_address;
     }
 
     /**
-     * @param address the address to set
+     * @param home_address the home_address to set
      */
-    public void setAddress(final String address)
+    public void setHome_address(final Address home_address)
     {
-        Address = address;
+        this.home_address = home_address;
+    }
+
+    /**
+     * @return the office_address
+     */
+    public Address getOffice_address()
+    {
+        return office_address;
+    }
+
+    /**
+     * @param office_address the office_address to set
+     */
+    public void setOffice_address(final Address office_address)
+    {
+        this.office_address = office_address;
     }
 
     /**
