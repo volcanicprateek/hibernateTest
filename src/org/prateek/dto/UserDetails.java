@@ -3,19 +3,15 @@
 
 package org.prateek.dto;
 
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * 
@@ -28,82 +24,23 @@ public class UserDetails
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @Temporal(TemporalType.DATE)
-    private Date joinedDate;
-    private String description;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name = "home_street")),
-            @AttributeOverride(name = "city", column = @Column(name = "home_city")),
-            @AttributeOverride(name = "pincode", column = @Column(name = "home_pincode")),
-            @AttributeOverride(name = "state", column = @Column(name = "home_state"))
-    })
-    private Address home_address;
-    @Embedded
-    private Address office_address;
+    @ElementCollection
+    private Set<Address> listOfAddresses = new HashSet();;
 
     /**
-     * @return the joinedDate
+     * @return the listOfAddresses
      */
-    public Date getJoinedDate()
+    public Set<Address> getListOfAddresses()
     {
-        return joinedDate;
+        return listOfAddresses;
     }
 
     /**
-     * @param joinedDate the joinedDate to set
+     * @param listOfAddresses the listOfAddresses to set
      */
-    public void setJoinedDate(final Date joinedDate)
+    public void setListOfAddresses(final Set<Address> listOfAddresses)
     {
-        this.joinedDate = joinedDate;
-    }
-
-    /**
-     * @return the home_address
-     */
-    public Address getHome_address()
-    {
-        return home_address;
-    }
-
-    /**
-     * @param home_address the home_address to set
-     */
-    public void setHome_address(final Address home_address)
-    {
-        this.home_address = home_address;
-    }
-
-    /**
-     * @return the office_address
-     */
-    public Address getOffice_address()
-    {
-        return office_address;
-    }
-
-    /**
-     * @param office_address the office_address to set
-     */
-    public void setOffice_address(final Address office_address)
-    {
-        this.office_address = office_address;
-    }
-
-    /**
-     * @return the description
-     */
-    public String getDescription()
-    {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(final String description)
-    {
-        this.description = description;
+        this.listOfAddresses = listOfAddresses;
     }
 
     /**

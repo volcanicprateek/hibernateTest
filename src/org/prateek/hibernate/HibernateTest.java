@@ -3,8 +3,6 @@
 
 package org.prateek.hibernate;
 
-import java.util.Date;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -28,8 +26,6 @@ public class HibernateTest
         //userDetails.setUserId(1);
         userDetails.setUserName("FirsUsers");
         //userDetails.setAddress("Avara Cadavara");
-        userDetails.setJoinedDate(new Date());
-        userDetails.setDescription("Nice decsription");
 
         final Address addr = new Address();
         addr.setCity("Jaipur");
@@ -37,24 +33,14 @@ public class HibernateTest
         addr.setStreet("adad");
         addr.setState("adadsda");
 
-        userDetails.setHome_address(addr);
-        userDetails.setOffice_address(addr);
-
-        final UserDetails userDetails2 = new UserDetails();
-        //userDetails2.setUserId(2);
-        userDetails2.setUserName("SecondUsers");
-        //userDetails2.setAddress("Avara Cadavara");
-        userDetails2.setJoinedDate(new Date());
-        userDetails2.setDescription("Nice decsription");
-
         final Address addr2 = new Address();
         addr2.setCity("Jaipur");
         addr2.setPincode("1212");
         addr2.setStreet("adad");
         addr2.setState("adadsda");
 
-        userDetails2.setHome_address(addr2);
-        userDetails2.setOffice_address(addr2);
+        userDetails.getListOfAddresses().add(addr);
+        userDetails.getListOfAddresses().add(addr2);
 
         final Configuration configuration = new Configuration().configure();
 
@@ -66,7 +52,6 @@ public class HibernateTest
 
         session.beginTransaction();
         session.save(userDetails);
-        session.save(userDetails2);
 
         session.getTransaction().commit();
 
