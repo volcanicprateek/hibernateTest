@@ -34,7 +34,7 @@ public class HibernateTest
         addr.setState("adadsda");
 
         final Address addr2 = new Address();
-        addr2.setCity("Jaipur");
+        addr2.setCity("Udaipur");
         addr2.setPincode("1212");
         addr2.setStreet("adad");
         addr2.setState("adadsda");
