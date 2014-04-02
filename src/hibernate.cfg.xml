@@ -30,5 +30,6 @@
     <property name="hbm2ddl.auto">create</property>
     
     <mapping class="org.prateek.dto.UserDetails"/>
+    <mapping class="org.prateek.dto.Vehicle"/>
   </session-factory>
 </hibernate-configuration>

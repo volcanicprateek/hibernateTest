@@ -8,8 +8,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.prateek.dto.Address;
 import org.prateek.dto.UserDetails;
+import org.prateek.dto.Vehicle;
 
 /**
  * 
@@ -27,20 +27,10 @@ public class HibernateTest
         userDetails.setUserName("FirsUsers");
         //userDetails.setAddress("Avara Cadavara");
 
-        final Address addr = new Address();
-        addr.setCity("Jaipur");
-        addr.setPincode("1212");
-        addr.setStreet("adad");
-        addr.setState("adadsda");
+        final Vehicle vehicle = new Vehicle();
+        vehicle.setVehicleName("Car");
 
-        final Address addr2 = new Address();
-        addr2.setCity("Udaipur");
-        addr2.setPincode("1212");
-        addr2.setStreet("adad");
-        addr2.setState("adadsda");
-
-        userDetails.getListOfAddresses().add(addr);
-        userDetails.getListOfAddresses().add(addr2);
+        userDetails.setVehicle(vehicle);
 
         final Configuration configuration = new Configuration().configure();
 
@@ -52,6 +42,7 @@ public class HibernateTest
 
         session.beginTransaction();
         session.save(userDetails);
+        session.save(vehicle);
 
         session.getTransaction().commit();
 

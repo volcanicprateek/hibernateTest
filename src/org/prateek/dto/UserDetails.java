@@ -3,22 +3,13 @@
 
 package org.prateek.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 /**
  * 
@@ -31,29 +22,24 @@ public class UserDetails
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @ElementCollection
-    @JoinTable(name = "USER_ADDDRESS",
-            joinColumns = @JoinColumn(name = "User_ID"))
-    @GenericGenerator(name = "hilo-gen", strategy = "hilo")
-    @CollectionId(columns = {
-            @Column(name = "ADDRESS_ID")
-    }, generator = "hilo-gen", type = @Type(type = "long"))
-    private Collection<Address> listOfAddresses = new ArrayList();;
+    @OneToOne
+    @JoinColumn(name = "Vehicle_ID")
+    private Vehicle vehicle;
 
     /**
-     * @return the listOfAddresses
+     * @return the vehicle
      */
-    public Collection<Address> getListOfAddresses()
+    public Vehicle getVehicle()
     {
-        return listOfAddresses;
+        return vehicle;
     }
 
     /**
-     * @param listOfAddresses the listOfAddresses to set
+     * @param vehicle the vehicle to set
      */
-    public void setListOfAddresses(final Collection<Address> listOfAddresses)
+    public void setVehicle(final Vehicle vehicle)
     {
-        this.listOfAddresses = listOfAddresses;
+        this.vehicle = vehicle;
     }
 
     /**
