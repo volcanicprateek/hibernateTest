@@ -3,12 +3,16 @@
 
 package org.prateek.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,14 +26,15 @@ public class UserDetails
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @OneToOne
-    @JoinColumn(name = "Vehicle_ID")
-    private Vehicle vehicle;
+    @OneToMany
+    @JoinTable(name = "User_Vehicle", joinColumns = @JoinColumn(name = "User_Id"),
+            inverseJoinColumns = @JoinColumn(name = "Vehicle_Id"))
+    private Collection<Vehicle> vehicle = new ArrayList();
 
     /**
      * @return the vehicle
      */
-    public Vehicle getVehicle()
+    public Collection<Vehicle> getVehicle()
     {
         return vehicle;
     }
@@ -37,7 +42,7 @@ public class UserDetails
     /**
      * @param vehicle the vehicle to set
      */
-    public void setVehicle(final Vehicle vehicle)
+    public void setVehicle(final Collection<Vehicle> vehicle)
     {
         this.vehicle = vehicle;
     }

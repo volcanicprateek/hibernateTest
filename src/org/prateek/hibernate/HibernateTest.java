@@ -29,8 +29,13 @@ public class HibernateTest
 
         final Vehicle vehicle = new Vehicle();
         vehicle.setVehicleName("Car");
+        vehicle.setUser(userDetails);
+        final Vehicle vehicle1 = new Vehicle();
+        vehicle1.setVehicleName("Truck");
+        vehicle1.setUser(userDetails);
 
-        userDetails.setVehicle(vehicle);
+        userDetails.getVehicle().add(vehicle);
+        userDetails.getVehicle().add(vehicle1);
 
         final Configuration configuration = new Configuration().configure();
 
@@ -43,6 +48,7 @@ public class HibernateTest
         session.beginTransaction();
         session.save(userDetails);
         session.save(vehicle);
+        session.save(vehicle1);
 
         session.getTransaction().commit();
 
