@@ -3,14 +3,10 @@
 
 package org.prateek.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 /**
  * 
@@ -22,24 +18,6 @@ public class Vehicle
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int vehicleId;
     private String vehicleName;
-    @ManyToMany
-    private Collection<UserDetails> users = new ArrayList();
-
-    /**
-     * @return the users
-     */
-    public Collection<UserDetails> getUsers()
-    {
-        return users;
-    }
-
-    /**
-     * @param users the users to set
-     */
-    public void setUsers(final Collection<UserDetails> users)
-    {
-        this.users = users;
-    }
 
     /**
      * @return the vehicleId

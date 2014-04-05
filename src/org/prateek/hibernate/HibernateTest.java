@@ -27,10 +27,6 @@ public class HibernateTest
         userDetails.setUserName("FirsUsers");
         //userDetails.setAddress("Avara Cadavara");
 
-        final UserDetails userDetails1 = new UserDetails();
-        //userDetails.setUserId(1);
-        userDetails1.setUserName("SecondUsers");
-
         final Vehicle vehicle = new Vehicle();
         vehicle.setVehicleName("Car");
 
@@ -39,12 +35,6 @@ public class HibernateTest
 
         userDetails.getVehicle().add(vehicle);
         userDetails.getVehicle().add(vehicle1);
-
-        vehicle.getUsers().add(userDetails);
-        vehicle.getUsers().add(userDetails1);
-
-        vehicle1.getUsers().add(userDetails);
-        vehicle1.getUsers().add(userDetails1);
 
         final Configuration configuration = new Configuration().configure();
 
@@ -55,10 +45,7 @@ public class HibernateTest
         final Session session = sessionFactory.openSession();
 
         session.beginTransaction();
-        session.save(userDetails);
-        session.save(userDetails1);
-        session.save(vehicle);
-        session.save(vehicle1);
+        session.persist(userDetails);
 
         session.getTransaction().commit();
 
