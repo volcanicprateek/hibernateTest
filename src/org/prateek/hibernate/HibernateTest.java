@@ -8,7 +8,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.prateek.dto.UserDetails;
+import org.prateek.dto.FourWheeler;
+import org.prateek.dto.TwoWheeler;
 import org.prateek.dto.Vehicle;
 
 /**
@@ -22,19 +23,17 @@ public class HibernateTest
      */
     public static void main(final String[] args)
     {
-        final UserDetails userDetails = new UserDetails();
-        //userDetails.setUserId(1);
-        userDetails.setUserName("FirsUsers");
-        //userDetails.setAddress("Avara Cadavara");
 
         final Vehicle vehicle = new Vehicle();
         vehicle.setVehicleName("Car");
 
-        final Vehicle vehicle1 = new Vehicle();
-        vehicle1.setVehicleName("Truck");
+        final TwoWheeler bike = new TwoWheeler();
+        bike.setVehicleName("Bike");
+        bike.setSteeringHandle("Steering handle");
 
-        userDetails.getVehicle().add(vehicle);
-        userDetails.getVehicle().add(vehicle1);
+        final FourWheeler car = new FourWheeler();
+        car.setSteeringWheel("Steering wheel");
+        car.setVehicleName("Porche");
 
         final Configuration configuration = new Configuration().configure();
 
@@ -45,7 +44,9 @@ public class HibernateTest
         final Session session = sessionFactory.openSession();
 
         session.beginTransaction();
-        session.persist(userDetails);
+        session.save(vehicle);
+        session.save(bike);
+        session.save(car);
 
         session.getTransaction().commit();
 

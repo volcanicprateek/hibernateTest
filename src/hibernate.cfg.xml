@@ -29,7 +29,8 @@
     <!-- Drop and re-create the database schema on startup -->
     <property name="hbm2ddl.auto">create</property>
     
-    <mapping class="org.prateek.dto.UserDetails"/>
     <mapping class="org.prateek.dto.Vehicle"/>
+    <mapping class="org.prateek.dto.TwoWheeler"/>
+    <mapping class="org.prateek.dto.FourWheeler"/>
   </session-factory>
 </hibernate-configuration>
