@@ -3,46 +3,21 @@
 
 package org.prateek.dto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  * 
  */
 @Entity
-@Table(name = "USER_DETAILS")
 public class UserDetails
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private Collection<Vehicle> vehicle = new ArrayList();
-
-    /**
-     * @return the vehicle
-     */
-    public Collection<Vehicle> getVehicle()
-    {
-        return vehicle;
-    }
-
-    /**
-     * @param vehicle the vehicle to set
-     */
-    public void setVehicle(final Collection<Vehicle> vehicle)
-    {
-        this.vehicle = vehicle;
-    }
 
     /**
      * @return the userId
