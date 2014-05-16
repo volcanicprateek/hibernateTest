@@ -11,7 +11,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.prateek.dto.UserDetails;
 
 /**
  * 
@@ -32,14 +31,20 @@ public class HibernateTest
         final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory(serviceRegistry);
 
         final Session session = sessionFactory.openSession();
-        final Query query = session.createQuery("from UserDetails where userId>3");
-        final List<UserDetails> users = query.list();
+        final Query query = session.createQuery("select userName from UserDetails");
+        query.setFirstResult(2);
+        query.setMaxResults(2);
+        final List<String> userNames = query.list();
         session.beginTransaction();
 
         session.getTransaction().commit();
 
         session.close();
-        System.out.println("Size is" + users.size());
+        //System.out.println("Size is" + users.size());
+        for (final String u : userNames)
+        {
+            System.out.println(u);
+        }
 
     }
 }
