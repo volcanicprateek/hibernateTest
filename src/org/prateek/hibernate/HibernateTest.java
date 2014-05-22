@@ -5,11 +5,12 @@ package org.prateek.hibernate;
 
 import java.util.List;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.prateek.dto.UserDetails;
 
@@ -33,10 +34,10 @@ public class HibernateTest
 
         final Session session = sessionFactory.openSession();
 
-        final Query query = session.getNamedQuery("UserDetails.byName");
-        query.setString(0, "User2");
+        final Criteria criteria = session.createCriteria(UserDetails.class);
+        criteria.add(Restrictions.or(Restrictions.eq("userName", "User2"), Restrictions.eq("userId", 3)));
 
-        final List<UserDetails> userNames = query.list();
+        final List<UserDetails> userNames = criteria.list();
         session.beginTransaction();
 
         session.getTransaction().commit();
