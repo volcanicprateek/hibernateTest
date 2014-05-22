@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.SelectBeforeUpdate;
@@ -15,6 +17,8 @@ import org.hibernate.annotations.SelectBeforeUpdate;
  * 
  */
 @Entity
+@NamedQuery(name = "UserDetails.byId", query = "from UserDetails where userId > ? ")
+@NamedNativeQuery(name = "UserDetails.byName", query = "select * from User_Details where userName = ?", resultClass = UserDetails.class)
 @Table(name = "User_Details")
 @SelectBeforeUpdate
 public class UserDetails

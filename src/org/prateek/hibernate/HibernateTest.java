@@ -33,11 +33,8 @@ public class HibernateTest
 
         final Session session = sessionFactory.openSession();
 
-        final String minUserId = "3";
-        final String minUserName = "User4";
-        final Query query = session.createQuery("from UserDetails where userId > :userId and userName = :userName");
-        query.setInteger("userId", Integer.parseInt(minUserId));
-        query.setString("userName", minUserName);
+        final Query query = session.getNamedQuery("UserDetails.byName");
+        query.setString(0, "User2");
 
         final List<UserDetails> userNames = query.list();
         session.beginTransaction();
