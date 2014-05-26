@@ -3,6 +3,7 @@
 
 package org.prateek.dto;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,12 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 /**
  * 
  */
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @NamedQuery(name = "UserDetails.byId", query = "from UserDetails where userId > ? ")
 @Table(name = "User_Details")
 @SelectBeforeUpdate

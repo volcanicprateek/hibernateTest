@@ -5,12 +5,11 @@ package org.prateek.hibernate;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.prateek.dto.UserDetails;
 
@@ -33,21 +32,28 @@ public class HibernateTest
         final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory(serviceRegistry);
 
         final Session session = sessionFactory.openSession();
+        final Query query = session.createQuery("from UserDetails user where user.userId = 1");
+        query.setCacheable(true);
 
-        final Criteria criteria = session.createCriteria(UserDetails.class);
-        criteria.add(Restrictions.or(Restrictions.eq("userName", "User2"), Restrictions.eq("userId", 3)));
+        final List<UserDetails> users = query.list();
 
-        final List<UserDetails> userNames = criteria.list();
         session.beginTransaction();
 
         session.getTransaction().commit();
 
         session.close();
-        //System.out.println("Size is" + users.size());
-        for (final UserDetails u : userNames)
-        {
-            System.out.println(u.getUserName());
-        }
+
+        final Session session1 = sessionFactory.openSession();
+        final Query query1 = session1.createQuery("from UserDetails user where user.userId = 1");
+        query1.setCacheable(true);
+
+        final List<UserDetails> users1 = query1.list();
+
+        session1.beginTransaction();
+
+        session1.getTransaction().commit();
+
+        session1.close();
 
     }
 }
